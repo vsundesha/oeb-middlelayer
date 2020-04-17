@@ -44,23 +44,23 @@ function addsubmenu(res) {
         var link = _a[_i];
         submenu.push({
             path: basepath + '/' + link._id,
-            label: link.name
+            label: link.name,
         });
     }
     return [
         {
             path: basepath,
             label: 'Scientific',
-            submenu: submenu
+            submenu: submenu,
         },
         {
             path: '/tool',
-            label: 'Technical monitoring'
+            label: 'Technical monitoring',
         },
         {
             label: 'Docs',
-            href: 'https://dev-openebench.bsc.es/docs/'
-        }
+            href: 'https://dev-openebench.bsc.es/docs/',
+        },
     ];
 }
 function scientificComunitiesList() {
@@ -70,8 +70,8 @@ function scientificComunitiesList() {
             switch (_a.label) {
                 case 0:
                     query = "\n    {\n        getCommunities {\n            _id\n            name\n            acronym\n        }\n    }";
-                    endpoint = 'https://dev-openebench.bsc.es/sciapi/graphql';
-                    client = new graphql_request_1.GraphQLClient(endpoint);
+                    endpoint = new URL('https://dev-openebench.bsc.es/sciapi/graphql');
+                    client = new graphql_request_1.GraphQLClient(endpoint.href);
                     response = client
                         .request(query)
                         .then(function (res) {

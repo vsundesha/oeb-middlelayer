@@ -1,26 +1,36 @@
 import express = require('express');
 import { Request, Response, NextFunction } from 'express';
-import { graphqlserver } from './graphql';
 
 const app: express.Application = express();
 
 import { scientificComunitiesList } from './menu/menuMaker';
+import { generalTools } from './tools/toolAPI';
 
-app.get('/links', function(req: Request, res: Response, next: NextFunction) {
+app.get('/links', function (req: Request, res: Response, next: NextFunction) {
 	res.header('Access-Control-Allow-Origin', '*');
 	scientificComunitiesList()
-		.then(response => {
-			// console.log(response);
+		.then((response) => {
 			res.json(response);
 		})
-		.catch(err => {
+		.catch((err) => {
 			res.json(err);
 		});
 });
 
-// add graphql server to express
-graphqlserver.applyMiddleware({ app });
+app.get('/tools', function (req: Request, res: Response, next: NextFunction) {
+	res.header('Access-Control-Allow-Origin', '*');
+	let skip = req.query.skip || '0';
+	let limit = req.query.limit || '10';
 
-app.listen(3030, function() {
+	generalTools(skip, limit)
+		.then((response) => {
+			res.json(response);
+		})
+		.catch((err) => {
+			res.json(err);
+		});
+});
+
+app.listen(3030, function () {
 	console.log('Example app listening on port 3030!');
 });

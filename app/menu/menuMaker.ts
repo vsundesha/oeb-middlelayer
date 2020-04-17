@@ -7,23 +7,23 @@ function addsubmenu(res: any) {
 	for (let link of res.getCommunities) {
 		submenu.push({
 			path: basepath + '/' + link._id,
-			label: link.name
+			label: link.name,
 		});
 	}
 	return [
 		{
 			path: basepath,
 			label: 'Scientific',
-			submenu: submenu
+			submenu: submenu,
 		},
 		{
 			path: '/tool',
-			label: 'Technical monitoring'
+			label: 'Technical monitoring',
 		},
 		{
 			label: 'Docs',
-			href: 'https://dev-openebench.bsc.es/docs/'
-		}
+			href: 'https://dev-openebench.bsc.es/docs/',
+		},
 	];
 }
 
@@ -37,15 +37,15 @@ export async function scientificComunitiesList() {
         }
     }`;
 
-	const endpoint = 'https://dev-openebench.bsc.es/sciapi/graphql';
+	let endpoint = new URL('https://dev-openebench.bsc.es/sciapi/graphql');
 
-	const client = new GraphQLClient(endpoint);
+	const client = new GraphQLClient(endpoint.href);
 	const response = client
 		.request(query)
-		.then(res => {
+		.then((res) => {
 			return addsubmenu(res);
 		})
-		.catch(err => console.log(err));
+		.catch((err) => console.log(err));
 
 	return await response;
 }
