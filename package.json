@@ -17,7 +17,7 @@
 		"apollo-datasource-rest": "^0.7.0",
 		"apollo-server-express": "^2.10.1",
 		"axios": "^0.19.2",
-		"express": "^4.17.1",
+		"express": "^4.17.3",
 		"graphql": "^14.6.0",
 		"graphql-request": "^1.8.2",
 		"nodemon": "^2.0.2",
